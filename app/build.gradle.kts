@@ -53,6 +53,11 @@ dependencies {
     implementation(libs.mapbox)
     implementation(libs.mapbox.compose)
 
+    implementation(libs.retrofit.core)
+    implementation(libs.retrofit.converter.gson)
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.logging)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
 
