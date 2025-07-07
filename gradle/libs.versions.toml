@@ -10,6 +10,9 @@ activityCompose = "1.10.1"
 composeBom = "2025.06.01"
 mapboxCompose = "11.13.1"
 mapbox = "11.13.1"
+hilt = "2.51.1"
+serialization = "1.8.1"
+
 
 [libraries]
 mapbox = { module = "com.mapbox.maps:android", version.ref = "mapbox" }
@@ -29,8 +32,16 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 mapbox-compose = { module = "com.mapbox.extension:maps-compose", version.ref = "mapboxCompose" }
 
+dagger-hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
+dagger-hilt-kapt = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
+
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization"}
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-kapt = {id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin"}
+dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt"}
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
