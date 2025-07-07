@@ -13,11 +13,11 @@ import com.mapbox.maps.extension.compose.annotation.generated.CircleAnnotation
 @Composable
 fun MainMapScreen() {
     val mockMarkers = listOf(
-        GyrosPlace("1", "Gyros Place 1", 20.4573, 44.8176),
-        GyrosPlace("2", "Gyros Place 2", 20.4600, 44.8190),
-        GyrosPlace("3", "Gyros Place 3", 20.4550, 44.8150),
-        GyrosPlace("4", "Gyros Place 4", 20.4620, 44.8180),
-        GyrosPlace("5", "Gyros Place 5", 20.4590, 44.8160)
+        GyrosPlace(1, "Gyros Place 1", 20.4573, 44.8176),
+        GyrosPlace(2, "Gyros Place 2", 20.4600, 44.8190),
+        GyrosPlace(3, "Gyros Place 3", 20.4550, 44.8150),
+        GyrosPlace(4, "Gyros Place 4", 20.4620, 44.8180),
+        GyrosPlace(5, "Gyros Place 5", 20.4590, 44.8160)
     )
 
     MapboxMap(
