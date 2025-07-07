@@ -2,6 +2,9 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.dagger.hilt.android)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -17,6 +20,9 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+//    composeOptions {
+//        kotlinCompilerExtensionVersion = "1.5.15"
+//    }
 
     buildTypes {
         release {
@@ -40,6 +46,9 @@ android {
 }
 
 dependencies {
+
+    implementation(libs.dagger.hilt)
+    kapt(libs.dagger.hilt.kapt)
 
     implementation(libs.mapbox)
     implementation(libs.mapbox.compose)
