@@ -14,6 +14,7 @@ hilt = "2.51.1"
 serialization = "1.8.1"
 retrofit = "2.9.0"
 okhttp = "4.12.0"
+hiltNavigationCompose = "1.2.0"
 
 
 [libraries]
@@ -36,6 +37,7 @@ mapbox-compose = { module = "com.mapbox.extension:maps-compose", version.ref = "
 
 dagger-hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 dagger-hilt-kapt = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
+dagger-hilt-navigation = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization"}
 
