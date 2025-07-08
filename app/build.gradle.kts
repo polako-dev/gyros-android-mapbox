@@ -49,6 +49,7 @@ dependencies {
 
     implementation(libs.dagger.hilt)
     kapt(libs.dagger.hilt.kapt)
+    implementation(libs.dagger.hilt.navigation)
 
     implementation(libs.mapbox)
     implementation(libs.mapbox.compose)
