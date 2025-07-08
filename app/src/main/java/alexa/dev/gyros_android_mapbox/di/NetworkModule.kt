@@ -1,5 +1,6 @@
 package alexa.dev.gyros_android_mapbox.di
 
+import alexa.dev.gyros_android_mapbox.domain.service.GyrosService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -40,9 +41,9 @@ object NetworkModule {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-//    @Provides
-//    @Singleton
-//    fun provideYourApiService(
-//        retrofit: Retrofit
-//    ): YourApiService = retrofit.create(YourApiService::class.java)
+    @Provides
+    @Singleton
+    fun provideGyrosService(
+        retrofit: Retrofit
+    ): GyrosService = retrofit.create(GyrosService::class.java)
 }
