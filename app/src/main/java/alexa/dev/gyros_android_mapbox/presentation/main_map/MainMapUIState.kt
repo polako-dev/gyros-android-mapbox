@@ -5,5 +5,6 @@ import alexa.dev.gyros_android_mapbox.domain.model.GyrosPlace
 
 data class MainMapUIState (
     val gyrosPlaces: List<GyrosCoordinates> = emptyList(),
-    val chosenGyros: GyrosPlace? = null
+    val chosenGyros: GyrosPlace? = null,
+    val isBsVisible: Boolean = false,
 )
