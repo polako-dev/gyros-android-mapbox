@@ -6,7 +6,8 @@ data class GyrosPlace(
     val latitude: Double,
     val longitude: Double,
     val rating: Int,
-    val reviews: List<Review>? = null
+    val reviews: List<Review>? = null,
+    val address: String
 )
 
 
@@ -16,7 +17,7 @@ fun GyrosPlace.toGyrosCoords(color: Long): GyrosCoordinates {
         latitude = this.latitude,
         longitude = this.longitude,
         rating = this.rating,
-        color = color
+        color = color,
     )
 }
 
