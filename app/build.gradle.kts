@@ -54,8 +54,11 @@ dependencies {
     implementation(libs.mapbox)
     implementation(libs.mapbox.compose)
 
+    implementation(libs.kotlinx.serialization.json)
+
     implementation(libs.retrofit.core)
-    implementation(libs.retrofit.converter.gson)
+    implementation(libs.retrofit.converter.serialization)
+
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging)
 

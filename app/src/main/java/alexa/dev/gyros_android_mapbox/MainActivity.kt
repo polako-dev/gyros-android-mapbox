@@ -23,8 +23,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             GyrosandroidmapboxTheme {
                 MainMapScreen()
-//                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-//                }
             }
         }
     }

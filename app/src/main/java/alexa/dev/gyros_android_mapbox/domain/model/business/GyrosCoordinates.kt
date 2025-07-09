@@ -1,4 +1,4 @@
-package alexa.dev.gyros_android_mapbox.domain.model
+package alexa.dev.gyros_android_mapbox.domain.model.business
 
 data class GyrosCoordinates(
     val id: Int,
