@@ -26,7 +26,7 @@ fun MainMapScreen(
     val state by viewModel.uiState.collectAsState()
     viewModel.getPlaces()
 
-    val mockMarkers = state.gyrosPlaces
+    val mockMarkers = state.gyrosPlacesUI
 
     LaunchedEffect(Unit) {
         viewModel.uiAction.collect { action ->
@@ -50,7 +50,7 @@ fun MainMapScreen(
         for (place in mockMarkers) {
             ViewAnnotation(
                 options = viewAnnotationOptions {
-                    geometry(Point.fromLngLat(place.latitude, place.longitude))
+                    geometry(Point.fromLngLat(place.longitude, place.latitude))
                 }
             ) {
                 CustomButtonGyros(
@@ -60,12 +60,11 @@ fun MainMapScreen(
             }
         }
 
-
         if (state.isBsVisible == true) {
             ModalBottomSheet(
                 onDismissRequest = { viewModel.dismissBs() }
             ) {
-                GyrosPlaceBottomSheet(place = state.chosenGyros!!, onDismiss = { })
+                GyrosPlaceBottomSheet(place = state.chosenGyros!!, review = state.review, onDismiss = { viewModel.dismissBs() })
             }
         }
 

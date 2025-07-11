@@ -1,4 +1,4 @@
-package alexa.dev.gyros_android_mapbox.domain.model
+package alexa.dev.gyros_android_mapbox.domain.model.review
 
 enum class RatingColor(val rating: Int, val color: Long) {
     RED(1, 0xffd32f2f),
