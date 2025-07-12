@@ -1,42 +1,70 @@
 package alexa.dev.gyros_android_mapbox.presentation.main_map
 
-import alexa.dev.gyros_android_mapbox.domain.model.GyrosPlace
+import alexa.dev.gyros_android_mapbox.presentation.read_place.GyrosPlaceBottomSheet
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.mapbox.geojson.Point
 import com.mapbox.maps.extension.compose.MapboxMap
 import com.mapbox.maps.extension.compose.animation.viewport.rememberMapViewportState
-import com.mapbox.maps.extension.compose.annotation.generated.CircleAnnotation
+import com.mapbox.maps.extension.compose.annotation.ViewAnnotation
+import com.mapbox.maps.viewannotation.geometry
+import com.mapbox.maps.viewannotation.viewAnnotationOptions
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainMapScreen() {
-    val mockMarkers = listOf(
-        GyrosPlace(1, "Gyros Place 1", 20.4573, 44.8176),
-        GyrosPlace(2, "Gyros Place 2", 20.4600, 44.8190),
-        GyrosPlace(3, "Gyros Place 3", 20.4550, 44.8150),
-        GyrosPlace(4, "Gyros Place 4", 20.4620, 44.8180),
-        GyrosPlace(5, "Gyros Place 5", 20.4590, 44.8160)
-    )
+fun MainMapScreen(
+    viewModel: MainMapViewModel = hiltViewModel()
+) {
+    val state by viewModel.uiState.collectAsState()
+    viewModel.getPlaces()
 
-    MapboxMap(
-        Modifier.fillMaxSize(),
-        mapViewportState = rememberMapViewportState {
-            setCameraOptions {
-                zoom(12.0)
-                center(Point.fromLngLat(20.4628694, 44.8122387))
-                pitch(0.0)
-                bearing(0.0)
+    val mockMarkers = state.gyrosPlacesUI
+
+    LaunchedEffect(Unit) {
+        viewModel.uiAction.collect { action ->
+            when (action) {
+                is MainMapUIAction.ShowBottomSheet -> {}
             }
         }
+    }
+
+    val mapViewport = rememberMapViewportState {
+        setCameraOptions {
+            zoom(12.0)
+            center(Point.fromLngLat(20.4628694, 44.8122387))
+            bearing(0.0)
+        }
+    }
+    MapboxMap(
+        modifier = Modifier.fillMaxSize(),
+        mapViewportState = mapViewport,
     ) {
         for (place in mockMarkers) {
-            CircleAnnotation(point = Point.fromLngLat(place.latitude, place.longitude)) {
-                circleRadius = 8.0
-                circleColor = Color(0xffee4e8b)
-                circleStrokeWidth = 2.0
-                circleStrokeColor = Color(0xffffffff)
+            ViewAnnotation(
+                options = viewAnnotationOptions {
+                    geometry(Point.fromLngLat(place.longitude, place.latitude))
+                }
+            ) {
+                CustomButtonGyros(
+                    color = Color(place.color),
+                    onClick = { viewModel.getChosenGyros(place.id) }
+                )
+            }
+        }
+
+        if (state.isBsVisible == true) {
+            ModalBottomSheet(
+                onDismissRequest = { viewModel.dismissBs() }
+            ) {
+                GyrosPlaceBottomSheet(place = state.chosenGyros!!, review = state.review, onDismiss = { viewModel.dismissBs() })
             }
         }
 

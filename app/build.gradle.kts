@@ -49,12 +49,16 @@ dependencies {
 
     implementation(libs.dagger.hilt)
     kapt(libs.dagger.hilt.kapt)
+    implementation(libs.dagger.hilt.navigation)
 
     implementation(libs.mapbox)
     implementation(libs.mapbox.compose)
 
+    implementation(libs.kotlinx.serialization.json)
+
     implementation(libs.retrofit.core)
-    implementation(libs.retrofit.converter.gson)
+    implementation(libs.retrofit.converter.serialization)
+
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging)
 
