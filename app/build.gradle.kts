@@ -51,6 +51,8 @@ dependencies {
     kapt(libs.dagger.hilt.kapt)
     implementation(libs.dagger.hilt.navigation)
 
+    implementation(libs.accompanist.permissions)
+
     implementation(libs.mapbox)
     implementation(libs.mapbox.compose)
 

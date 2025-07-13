@@ -27,6 +27,22 @@ class MainMapViewModel @Inject constructor(
     private val _uiAction = MutableSharedFlow<MainMapUIAction>()
     val uiAction = _uiAction.asSharedFlow()
 
+    fun checkPermissions() {
+        viewModelScope.execute(
+            source = {
+                _uiAction.emit(MainMapUIAction.RequestLocationPermission)
+            }
+        )
+    }
+
+    fun centerOnUser() {
+        viewModelScope.execute(
+            source = {
+                _uiAction.emit(MainMapUIAction.CenterMapOnUser)
+            }
+        )
+    }
+
     fun getPlaces() {
         viewModelScope.execute(
             source = {
@@ -81,7 +97,7 @@ class MainMapViewModel @Inject constructor(
                         )
                     }
                 },
-                onError = {error ->
+                onError = { error ->
                     Log.d("DEBUG", error.toString())
                 }
             )

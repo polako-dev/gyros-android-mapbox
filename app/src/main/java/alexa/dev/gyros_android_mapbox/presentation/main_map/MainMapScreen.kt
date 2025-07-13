@@ -11,30 +11,30 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.isGranted
+import com.google.accompanist.permissions.rememberPermissionState
 import com.mapbox.geojson.Point
+import com.mapbox.maps.extension.compose.MapEffect
 import com.mapbox.maps.extension.compose.MapboxMap
 import com.mapbox.maps.extension.compose.animation.viewport.rememberMapViewportState
 import com.mapbox.maps.extension.compose.annotation.ViewAnnotation
+import com.mapbox.maps.plugin.PuckBearing
+import com.mapbox.maps.plugin.locationcomponent.createDefault2DPuck
+import com.mapbox.maps.plugin.locationcomponent.location
 import com.mapbox.maps.viewannotation.geometry
 import com.mapbox.maps.viewannotation.viewAnnotationOptions
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalPermissionsApi::class)
 @Composable
 fun MainMapScreen(
     viewModel: MainMapViewModel = hiltViewModel()
 ) {
     val state by viewModel.uiState.collectAsState()
+    viewModel.checkPermissions()
     viewModel.getPlaces()
 
     val mockMarkers = state.gyrosPlacesUI
-
-    LaunchedEffect(Unit) {
-        viewModel.uiAction.collect { action ->
-            when (action) {
-                is MainMapUIAction.ShowBottomSheet -> {}
-            }
-        }
-    }
 
     val mapViewport = rememberMapViewportState {
         setCameraOptions {
@@ -43,10 +43,44 @@ fun MainMapScreen(
             bearing(0.0)
         }
     }
+
+    val locationPermission =
+        rememberPermissionState(permission = android.Manifest.permission.ACCESS_FINE_LOCATION)
+
+    LaunchedEffect(Unit) {
+        viewModel.uiAction.collect { action ->
+            when (action) {
+                is MainMapUIAction.ShowBottomSheet -> {}
+
+                is MainMapUIAction.CenterMapOnUser -> {
+                    mapViewport.transitionToFollowPuckState()
+                }
+
+                is MainMapUIAction.RequestLocationPermission -> {
+                    if (!locationPermission.status.isGranted) {
+                        locationPermission.launchPermissionRequest()
+                    }
+                }
+
+                is MainMapUIAction.ShowError -> {}
+            }
+        }
+    }
+
     MapboxMap(
         modifier = Modifier.fillMaxSize(),
         mapViewportState = mapViewport,
     ) {
+        MapEffect(Unit) { mapView ->
+            mapView.location.updateSettings {
+                locationPuck = createDefault2DPuck(withBearing = true)
+                enabled = true
+                puckBearing = PuckBearing.COURSE
+                puckBearingEnabled = true
+            }
+            mapViewport.transitionToFollowPuckState()
+        }
+
         for (place in mockMarkers) {
             ViewAnnotation(
                 options = viewAnnotationOptions {
@@ -64,9 +98,18 @@ fun MainMapScreen(
             ModalBottomSheet(
                 onDismissRequest = { viewModel.dismissBs() }
             ) {
-                GyrosPlaceBottomSheet(place = state.chosenGyros!!, review = state.review, onDismiss = { viewModel.dismissBs() })
+                GyrosPlaceBottomSheet(
+                    place = state.chosenGyros!!,
+                    review = state.review,
+                    onDismiss = { viewModel.dismissBs() })
             }
         }
 
     }
+
+    LocateMeButton(
+        onClick = {
+            viewModel.centerOnUser()
+        }
+    )
 }
