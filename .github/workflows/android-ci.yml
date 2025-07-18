@@ -1,15 +1,15 @@
-name: Build on Merge test → main
+name: Build on Merge test → mommy
 
 on:
   pull_request:
-    branches: [main]
+    branches: [mommy]
     types: [closed]
 
 jobs:
   build:
     if: |
       github.event.pull_request.merged == true &&
-      github.event.pull_request.base.ref == 'main' &&
+      github.event.pull_request.base.ref == 'mommy' &&
       github.event.pull_request.head.ref == 'test'
 
     runs-on: ubuntu-latest
