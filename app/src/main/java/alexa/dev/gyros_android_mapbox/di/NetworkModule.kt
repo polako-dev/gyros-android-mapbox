@@ -52,7 +52,7 @@ object NetworkModule {
         }
 
         return Retrofit.Builder()
-            .baseUrl("https://gyros-api.polako.uk/")
+            .baseUrl("https://gyros-api.polako.cloud/")
             .client(client)
             .addConverterFactory(json.asConverterFactory(contentType))
             .build()
