@@ -1,5 +1,7 @@
 package alexa.dev.gyros_android_mapbox.di
 
+import alexa.dev.gyros_android_mapbox.domain.repository.AuthRepository
+import alexa.dev.gyros_android_mapbox.domain.service.AuthService
 import alexa.dev.gyros_android_mapbox.domain.service.GyrosService
 import android.util.Log
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
@@ -14,6 +16,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import javax.inject.Singleton
+import kotlin.jvm.java
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -62,5 +65,11 @@ object NetworkModule {
     @Singleton
     fun provideGyrosService(retrofit: Retrofit): GyrosService =
         retrofit.create(GyrosService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideAuthService(retrofit: Retrofit): AuthService =
+        retrofit.create(AuthService::class.java)
+
 }
 
