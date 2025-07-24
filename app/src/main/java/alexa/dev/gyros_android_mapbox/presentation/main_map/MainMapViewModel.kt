@@ -1,5 +1,6 @@
 package alexa.dev.gyros_android_mapbox.presentation.main_map
 
+import alexa.dev.gyros_android_mapbox.domain.model.business.NewPlace
 import alexa.dev.gyros_android_mapbox.domain.model.business.toGyrosCoords
 import alexa.dev.gyros_android_mapbox.domain.model.review.RatingColor
 import alexa.dev.gyros_android_mapbox.domain.model.review.toReviewUI
@@ -114,5 +115,44 @@ class MainMapViewModel @Inject constructor(
                 isBsVisible = false
             )
         }
+    }
+
+    fun showAddPlaceBS(flag: Boolean, lat: Double, lon: Double) {
+        Log.d("DEBUG", lat.toString())
+        Log.d("DEBUG", lon.toString())
+        _uiState.update {
+            it.copy(
+                isBsAddPlaceVisible = flag,
+                newPlaceLat = lat,
+                newPlaceLon = lon
+            )
+        }
+    }
+
+    fun createNewPlace(name: String) {
+        val newGyros =
+            NewPlace(
+                name = name,
+                latitude = uiState.value.newPlaceLat,
+                longitude = uiState.value.newPlaceLon
+            )
+        Log.d("DEBUG", newGyros.toString())
+
+        viewModelScope.execute(
+            source = {
+                gyrosRepository.sendNewGyros(newGyros)
+            },
+            onSuccess = { gyros ->
+                //TODO add event with toast
+                showAddPlaceBS(false, 0.0, 0.0)
+                getPlaces()
+            },
+            onComplete = { result ->
+                Log.d("DEBUG", result.toString())
+            },
+            onError = {error ->
+                Log.d("DEBUG", error.toString())
+            }
+        )
     }
 }

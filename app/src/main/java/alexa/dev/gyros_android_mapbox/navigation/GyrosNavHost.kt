@@ -1,4 +1,4 @@
-package alexa.dev.gyros_android_mapbox.presentation.navigation
+package alexa.dev.gyros_android_mapbox.navigation
 
 import alexa.dev.gyros_android_mapbox.presentation.main_map.MainMapScreen
 import alexa.dev.gyros_android_mapbox.presentation.profile.ProfileScreen

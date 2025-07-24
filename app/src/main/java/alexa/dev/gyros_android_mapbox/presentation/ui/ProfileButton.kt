@@ -1,4 +1,4 @@
-package alexa.dev.gyros_android_mapbox.presentation.profile.ui
+package alexa.dev.gyros_android_mapbox.presentation.ui
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Button
