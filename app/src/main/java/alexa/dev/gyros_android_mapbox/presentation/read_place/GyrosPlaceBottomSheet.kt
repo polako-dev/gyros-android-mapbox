@@ -2,6 +2,7 @@ package alexa.dev.gyros_android_mapbox.presentation.read_place
 
 import alexa.dev.gyros_android_mapbox.domain.model.business.GyrosPlace
 import alexa.dev.gyros_android_mapbox.domain.model.review.Review
+import alexa.dev.gyros_android_mapbox.presentation.ui.ReviewRow
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -32,10 +33,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
-//, onDismiss: () -> Unit
-// place: GyrosPlace
 
-//@Preview
 @Composable
 fun GyrosPlaceBottomSheet(
     place: GyrosPlace,
@@ -68,21 +66,7 @@ fun GyrosPlaceBottomSheet(
             Spacer(Modifier.height(12.dp))
             HorizontalDivider(modifier = Modifier, thickness = 1.dp, color = Color.Black)
 
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier.padding(vertical = 8.dp)
-            ) {
-                Text("Rating: ${place.rating}", style = MaterialTheme.typography.bodyMedium)
-                repeat(place.rating) {
-                    Icon(
-                        imageVector = Icons.Default.Star,
-                        contentDescription = null,
-                        tint = Color(0xFFFFC107),
-                        modifier = Modifier.size(16.dp)
-                    )
-                }
-            }
+            ReviewRow(place.rating)
 
             Row(
                 verticalAlignment = Alignment.CenterVertically

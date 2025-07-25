@@ -1,4 +1,4 @@
-package alexa.dev.gyros_android_mapbox.presentation.main_map
+package alexa.dev.gyros_android_mapbox.presentation.ui
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
