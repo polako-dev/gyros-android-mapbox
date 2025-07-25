@@ -1,9 +1,12 @@
 package alexa.dev.gyros_android_mapbox.presentation.main_map
 
+import alexa.dev.gyros_android_mapbox.presentation.add_place.AddPlaceBS
 import alexa.dev.gyros_android_mapbox.presentation.read_place.GyrosPlaceBottomSheet
+import alexa.dev.gyros_android_mapbox.presentation.ui.CustomButtonGyros
+import alexa.dev.gyros_android_mapbox.presentation.ui.LocateMeButton
 import alexa.dev.gyros_android_mapbox.ui.theme.DarkBlue00
 import alexa.dev.gyros_android_mapbox.ui.theme.LightBlue00
-import android.content.Intent
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -72,7 +75,8 @@ fun MainMapScreen(
     LaunchedEffect(Unit) {
         viewModel.uiAction.collect { action ->
             when (action) {
-                is MainMapUIAction.ShowBottomSheet -> {}
+                is MainMapUIAction.ShowBottomSheet -> {
+                }
 
                 is MainMapUIAction.CenterMapOnUser -> {
                     mapViewport.transitionToFollowPuckState()
@@ -125,6 +129,11 @@ fun MainMapScreen(
                 .fillMaxSize()
                 .padding(innerPadding),
             mapViewportState = mapViewport,
+            onMapLongClickListener = {
+//                Toast.makeText(context, "Long-clicked on $it", Toast.LENGTH_SHORT).show()
+                viewModel.showAddPlaceBS(true, it.latitude(), it.longitude())
+                false
+            }
         ) {
             MapEffect(Unit) { mapView ->
                 mapView.location.updateSettings {
@@ -149,7 +158,7 @@ fun MainMapScreen(
                 }
             }
 
-            if (state.isBsVisible == true) {
+            if (state.isBsVisible) {
                 ModalBottomSheet(
                     onDismissRequest = { viewModel.dismissBs() }
                 ) {
@@ -157,6 +166,20 @@ fun MainMapScreen(
                         place = state.chosenGyros!!,
                         review = state.review,
                         onDismiss = { viewModel.dismissBs() })
+                }
+            }
+
+            if (state.isBsAddPlaceVisible) {
+                ModalBottomSheet(
+                    onDismissRequest = { viewModel.showAddPlaceBS(false, 0.0, 0.0) }
+                ) {
+                    AddPlaceBS(
+                        onCreate = { name ->
+                            Log.d("DEBUG", name)
+                            viewModel.createNewPlace(name)
+                        },
+                        onCancel = { viewModel.showAddPlaceBS(false, 0.0, 0.0) }
+                    )
                 }
             }
 

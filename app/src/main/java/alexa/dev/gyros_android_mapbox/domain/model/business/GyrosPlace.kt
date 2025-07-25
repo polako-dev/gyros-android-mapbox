@@ -43,16 +43,3 @@ fun GyrosPlace.toGyrosCoords(color: Long): GyrosCoordinates {
         color = color,
     )
 }
-
-//fun GyrosPlace.toGyrosUI(): GyrosUI {
-//    return GyrosUI(
-//        id = this.id,
-//        name = this.id,
-//        latitude = this.id,
-//        longitude = this.id,
-//        rating = this.id,
-//        reviews = this.re,
-//        address = this.address
-//    )
-//}
-

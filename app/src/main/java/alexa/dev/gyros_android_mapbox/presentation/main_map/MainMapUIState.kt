@@ -10,4 +10,8 @@ data class MainMapUIState (
     val review: List<Review> = emptyList(),
     val chosenGyros: GyrosPlace? = null,
     val isBsVisible: Boolean = false,
+
+    val isBsAddPlaceVisible: Boolean = false,
+    val newPlaceLat: Double = 0.0,
+    val newPlaceLon: Double = 0.0
 )
