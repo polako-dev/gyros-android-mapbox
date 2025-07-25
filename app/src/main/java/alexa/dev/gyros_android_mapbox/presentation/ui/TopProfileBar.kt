@@ -1,4 +1,4 @@
-package alexa.dev.gyros_android_mapbox.presentation.profile.ui
+package alexa.dev.gyros_android_mapbox.presentation.ui
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack

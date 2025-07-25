@@ -1,9 +1,9 @@
 package alexa.dev.gyros_android_mapbox.presentation.profile
 
-import alexa.dev.gyros_android_mapbox.presentation.profile.ui.IconProfile
-import alexa.dev.gyros_android_mapbox.presentation.profile.ui.ProfileButton
-import alexa.dev.gyros_android_mapbox.presentation.profile.ui.ProfileSpacer
-import alexa.dev.gyros_android_mapbox.presentation.profile.ui.TopProfileBar
+import alexa.dev.gyros_android_mapbox.presentation.ui.IconProfile
+import alexa.dev.gyros_android_mapbox.presentation.ui.ProfileButton
+import alexa.dev.gyros_android_mapbox.presentation.ui.ProfileSpacer
+import alexa.dev.gyros_android_mapbox.presentation.ui.TopProfileBar
 import android.util.Log
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.foundation.layout.Arrangement
